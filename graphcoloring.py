@@ -17,7 +17,7 @@ class GraphColoring:
         self.n = len(adj_matrix)
         self.max_colors = max_colors
 
-        self.graph = self._build_adj_list()
+        self.graph = self._build_adj_list() #matrix ke->list ke
         self.current_degree = {v: len(self.graph[v]) for v in self.graph}
         self.colors = {}
 
@@ -29,7 +29,7 @@ class GraphColoring:
                 if self.adj_matrix[i][j] == 1:
                     graph[i].append(j)
         return graph
-
+    #dinh chua to mau
     def _get_uncolored_nodes(self):
         return [v for v in self.graph if v not in self.colors]
 
@@ -39,7 +39,7 @@ class GraphColoring:
             self._get_uncolored_nodes(),
             key=lambda x: (self.current_degree[x], -x)
         )
-
+    #gan mau
     def _get_available_color(self, node):
         forbidden = {self.colors[n] for n in self.graph[node] if n in self.colors}
         for c in range(1, self.max_colors + 1):
@@ -49,7 +49,7 @@ class GraphColoring:
 
     def color_graph(self):
         print("bat dau to mau do thi")
-
+        #den khi to het dinh
         while len(self.colors) < self.n:
             node = self._select_node()
             color = self._get_available_color(node)
@@ -57,11 +57,12 @@ class GraphColoring:
             if color is None:
                 print(f"khong the to mau dinh {node} voi {self.max_colors} mau")
                 return False
-
+            #gan mau
             self.colors[node] = color
             print(f"chon dinh {node} bac {self.current_degree[node]} to mau {color}")
 
             print(f"ha bac cac dinh ke cua {node}:")
+            #giam bac dinh ke
             for neighbor in self.graph[node]:
                 if neighbor not in self.colors:
                     old = self.current_degree[neighbor]
